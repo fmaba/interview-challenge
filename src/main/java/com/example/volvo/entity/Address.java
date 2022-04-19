@@ -12,15 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @EmbeddedId
+    private AddressPrimaryKey id;
 
-    @Pattern(regexp = "[0-9]{5}-[0-9]{3}")
-    private String zipCode;
-
-    @ManyToMany(mappedBy = "addresses")
+    @ManyToMany(mappedBy = "addresses", fetch = FetchType.EAGER)
     private List<Customer> customers;
-
-    private long number;
 }

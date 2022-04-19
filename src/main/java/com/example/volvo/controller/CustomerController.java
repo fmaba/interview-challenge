@@ -12,29 +12,22 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/customers")
 public class CustomerController implements CRUDController<ResponseEntity<Customer>, CustomerDto> {
 
     @Autowired
     CustomerService service;
 
-    @GetMapping
-    public ResponseEntity health() {
-        return ResponseEntity.ok("up!");
-    }
-
-    @GetMapping("byZipCode")
-    public ResponseEntity<List<CustomerDto>> getCustomersByZipCode(@RequestParam String zipCode) {
-        return ResponseEntity.ok(service.getCustomersByZipCode(zipCode));
+    @GetMapping("/byZipCode")
+    public ResponseEntity<List<CustomerDto>> getCustomersByZipCode(@RequestParam String value) {
+        List<CustomerDto> customersByZipCode = service.getCustomersByZipCode(value);
+        return ResponseEntity.ok(customersByZipCode);
     }
 
     @PostMapping("/create")
     public ResponseEntity<Customer> create(@RequestBody CustomerDto customerDto) {
-        Optional<Customer> customerOptional = service.insert(customerDto);
-        if (customerOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.ok(customerOptional.get());
+        Customer customer = service.insert(customerDto);
+        return ResponseEntity.ok(customer);
     }
 
     @PutMapping("/update")
