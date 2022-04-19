@@ -20,7 +20,7 @@ public interface CustomerMapper {
     Customer fromDto(CustomerDto customerDto);
 
     @InheritInverseConfiguration
-    @Mapping(target = "addresses", ignore = true)
+    @Mapping(target = "addresses", source = "addresses", qualifiedByName = "toDtoAddressList")
     CustomerDto toDto(Customer customer);
 
     List<Customer> fromListDto(List<CustomerDto> list);
@@ -39,6 +39,18 @@ public interface CustomerMapper {
             primaryKey.setZipCode(dto.getZipCode());
             primaryKey.setNumber(dto.getNumber());
             address.setId(primaryKey);
+            result.add(address);
+        });
+        return result;
+    }
+
+    @Named("toDtoAddressList")
+    default List<AddressDto> toDtoAddressList(List<Address> list) {
+        List<AddressDto> result = new ArrayList<>();
+        list.forEach(entity -> {
+            AddressDto address = new AddressDto();
+            address.setNumber(entity.getId().getNumber());
+            address.setZipCode(entity.getId().getZipCode());
             result.add(address);
         });
         return result;

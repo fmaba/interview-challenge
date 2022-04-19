@@ -15,6 +15,5 @@ public class CustomerDto {
     private String name;
     private int age;
 
-    @Valid
     private List<AddressDto> addresses;
 }

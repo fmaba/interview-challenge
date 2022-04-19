@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class AddressDto {
 
-    private long id;
     private long number;
     private List<CustomerDto> customers;
     private String zipCode;
