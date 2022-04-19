@@ -23,7 +23,8 @@ public interface CustomerMapper {
     @Mapping(target = "addresses", ignore = true)
     CustomerDto toDto(Customer customer);
 
-    List<Customer> fromListDto (List<CustomerDto> list);
+    List<Customer> fromListDto(List<CustomerDto> list);
+
     @InheritInverseConfiguration
     List<CustomerDto> toListDto(List<Customer> customer);
 

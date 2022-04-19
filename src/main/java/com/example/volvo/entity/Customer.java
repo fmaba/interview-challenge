@@ -26,7 +26,7 @@ public class Customer extends Audit {
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinTable(name = "customers_addresses", joinColumns = @JoinColumn(name = "document_id"),
-            inverseJoinColumns = {@JoinColumn(name = "zipCode"), @JoinColumn(name = "number") })
+            inverseJoinColumns = {@JoinColumn(name = "zipCode"), @JoinColumn(name = "number")})
     private List<Address> addresses;
 
 }

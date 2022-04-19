@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -18,25 +17,27 @@ public class CustomerController implements CRUDController<ResponseEntity<Custome
     @Autowired
     CustomerService service;
 
+    @PostMapping("")
+    public ResponseEntity<Customer> create(@RequestBody CustomerDto customerDto) {
+        Customer customer = service.save(customerDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customer);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Customer> update(@RequestBody CustomerDto customerDto) {
+        Customer customer = service.save(customerDto);
+        return ResponseEntity.ok(customer);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Customer> delete(@RequestBody CustomerDto customerDto) {
+        service.delete(customerDto.getDocumentId());
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/byZipCode")
     public ResponseEntity<List<CustomerDto>> getCustomersByZipCode(@RequestParam String value) {
         List<CustomerDto> customersByZipCode = service.getCustomersByZipCode(value);
         return ResponseEntity.ok(customersByZipCode);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<Customer> create(@RequestBody CustomerDto customerDto) {
-        Customer customer = service.insert(customerDto);
-        return ResponseEntity.ok(customer);
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<Customer> update(@RequestBody CustomerDto customerDto) {
-        return null;
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Customer> delete(@RequestBody CustomerDto customerDto) {
-        return null;
     }
 }
