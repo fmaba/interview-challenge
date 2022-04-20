@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.Valid;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,5 +14,5 @@ public class CustomerDto {
     private String name;
     private int age;
 
-    private List<AddressDto> addresses;
+    private Set<AddressDto> addresses;
 }

@@ -1,16 +1,19 @@
 package com.example.volvo.entity;
 
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
@@ -24,9 +27,9 @@ public class Customer extends Audit {
     private int age;
 
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE})
     @JoinTable(name = "customers_addresses", joinColumns = @JoinColumn(name = "document_id"),
             inverseJoinColumns = {@JoinColumn(name = "zipCode"), @JoinColumn(name = "number")})
-    private List<Address> addresses;
+    private Set<Address> addresses = new HashSet<>();
 
 }

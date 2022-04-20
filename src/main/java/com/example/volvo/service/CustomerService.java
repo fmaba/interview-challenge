@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -47,4 +48,12 @@ public class CustomerService {
         return result;
     }
 
+    public List<CustomerDto> getAll() {
+        return mapper.toListDto(repository.findAll());
+    }
+
+    public CustomerDto getById(String id) {
+        Optional<Customer> customer = repository.findById(id);
+        return customer.map(value -> mapper.toDto(value)).orElse(null);
+    }
 }

@@ -9,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
-public class CustomerController implements CRUDController<ResponseEntity<Customer>, CustomerDto> {
+public class CustomerController {
 
     @Autowired
     CustomerService service;
@@ -29,11 +30,27 @@ public class CustomerController implements CRUDController<ResponseEntity<Custome
         return ResponseEntity.ok(customer);
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<Customer> delete(@RequestBody CustomerDto customerDto) {
-        service.delete(customerDto.getDocumentId());
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Customer> delete(@PathVariable String id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("")
+    public ResponseEntity<List<CustomerDto>> all() {
+        List<CustomerDto> customers = service.getAll();
+        return ResponseEntity.ok(customers);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerDto> byId(@PathVariable String id) {
+        CustomerDto customer = service.getById(id);
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 
     @GetMapping("/byZipCode")
     public ResponseEntity<List<CustomerDto>> getCustomersByZipCode(@RequestParam String value) {

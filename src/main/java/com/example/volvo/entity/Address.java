@@ -1,16 +1,19 @@
 package com.example.volvo.entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.validation.Valid;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Address {
@@ -20,5 +23,5 @@ public class Address {
     private AddressPrimaryKey id;
 
     @ManyToMany(mappedBy = "addresses", fetch = FetchType.EAGER)
-    private List<Customer> customers;
+    private Set<Customer> customers = new HashSet<>();
 }

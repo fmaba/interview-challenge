@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +31,8 @@ public interface CustomerMapper {
     List<Customer> fromSetToList(Set<Customer> set);
 
     @Named("toAddressListEntity")
-    default List<Address> toAddressListEntity(List<AddressDto> list) {
-        List<Address> result = new ArrayList<>();
+    default Set<Address> toAddressListEntity(Set<AddressDto> list) {
+        Set<Address> result = new HashSet<>();
         list.forEach(dto -> {
             Address address = new Address();
             AddressPrimaryKey primaryKey = new AddressPrimaryKey();
@@ -45,8 +45,8 @@ public interface CustomerMapper {
     }
 
     @Named("toDtoAddressList")
-    default List<AddressDto> toDtoAddressList(List<Address> list) {
-        List<AddressDto> result = new ArrayList<>();
+    default Set<AddressDto> toDtoAddressList(Set<Address> list) {
+        Set<AddressDto> result = new HashSet<>();
         list.forEach(entity -> {
             AddressDto address = new AddressDto();
             address.setNumber(entity.getId().getNumber());
