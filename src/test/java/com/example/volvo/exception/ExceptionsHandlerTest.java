@@ -1,7 +1,6 @@
-package com.example.volvo;
+package com.example.volvo.exception;
 
 import com.example.volvo.controller.CustomerController;
-import com.example.volvo.exception.ExceptionsHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
