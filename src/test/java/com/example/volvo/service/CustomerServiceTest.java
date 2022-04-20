@@ -20,7 +20,7 @@ import java.util.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CustomerServiceTest {
+class CustomerServiceTest {
 
     @MockBean
     CustomerRepository repository;
