@@ -32,32 +32,32 @@ public class CustomerServiceTest {
     CustomerService service;
 
     @Test
-    public void assertThatCalledToSaveACustomer() {
+    void assertThatCalledToSaveACustomer() {
         CustomerDto mockCustomer = buildCustomerDtoWithAddressesDto();
         service.save(mockCustomer);
         Mockito.verify(repository, Mockito.times(1)).save(ArgumentMatchers.any());
     }
 
     @Test
-    public void assertThatCalledToDeleteACustomer() {
+    void assertThatCalledToDeleteACustomer() {
         service.delete("any-id");
         Mockito.verify(repository, Mockito.times(1)).deleteById(ArgumentMatchers.any(String.class));
     }
 
     @Test
-    public void assertThatReturnCustomers() {
+    void assertThatReturnCustomers() {
         Mockito.when(repository.findAll()).thenReturn(buildTwoCustomersEntity());
         Assertions.assertThat(service.getAll()).hasSize(2);
     }
 
     @Test
-    public void assertThatGetByIdDidntReturnCustomer() {
+    void assertThatGetByIdDidntReturnCustomer() {
         Mockito.when(repository.findById(ArgumentMatchers.any(String.class))).thenReturn(Optional.empty());
         Assertions.assertThat(service.getById("any-id")).isNull();
     }
 
     @Test
-    public void assertThatFoundCustomersByZipCode() {
+    void assertThatFoundCustomersByZipCode() {
         List<Address> list = new ArrayList<>();
         Address address = new Address();
         Customer customer = new Customer();
